@@ -7,6 +7,7 @@ Interactive map that highlights family-friendly attractions across Israel. Built
 - Leaflet-powered map with rich popups and quick zoom controls.
 - Direct links to official websites and navigation directions for every spot.
 - Road-trip friendly desert stops between the Negev and Eilat with dedicated category filters.
+- Road-access filter that highlights where standard cars, high-clearance 2x4s, or light 4x4 crossovers are recommended.
 - Responsive layout and dark-mode friendly styling.
 
 ## Getting Started

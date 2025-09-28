@@ -16,9 +16,11 @@ const markerMap = new Map();
 const listElement = document.getElementById("attraction-list");
 const searchInput = document.getElementById("search-input");
 const categoryFilter = document.getElementById("category-filter");
+const roadAccessFilter = document.getElementById("road-access-filter");
 const seasonFilter = document.getElementById("season-filter");
 
 populateCategoryOptions();
+populateRoadAccessOptions();
 renderAttractions(attractions);
 attachEventHandlers();
 
@@ -32,21 +34,46 @@ function populateCategoryOptions() {
   }
 }
 
+function populateRoadAccessOptions() {
+  const order = new Map(
+    [
+      "Standard Car",
+      "High-Clearance 2x4",
+      "Light 4x4 (Crossover)",
+      "Dedicated 4x4",
+    ].map((label, index) => [label, index])
+  );
+
+  const levels = Array.from(new Set(attractions.map((item) => item.roadAccess).filter(Boolean))).sort(
+    (a, b) => (order.get(a) ?? Number.MAX_SAFE_INTEGER) - (order.get(b) ?? Number.MAX_SAFE_INTEGER)
+  );
+
+  for (const level of levels) {
+    const option = document.createElement("option");
+    option.value = level;
+    option.textContent = level;
+    roadAccessFilter.append(option);
+  }
+}
+
 function attachEventHandlers() {
   searchInput.addEventListener("input", refreshResults);
   categoryFilter.addEventListener("change", refreshResults);
+  roadAccessFilter.addEventListener("change", refreshResults);
   seasonFilter.addEventListener("change", refreshResults);
 }
 
 function refreshResults() {
   const query = searchInput.value.trim().toLowerCase();
   const categoryValue = categoryFilter.value;
+  const roadAccessValue = roadAccessFilter.value;
   const seasonValue = seasonFilter.value;
 
   const filtered = attractions.filter((item) => {
     const matchesCategory = categoryValue === "all" || item.category === categoryValue;
+    const matchesAccess = roadAccessValue === "all" || item.roadAccess === roadAccessValue;
     const matchesSeason = seasonValue === "all" || item.bestSeason.toLowerCase().includes(seasonValue.toLowerCase());
-    if (!matchesCategory || !matchesSeason) {
+    if (!matchesCategory || !matchesAccess || !matchesSeason) {
       return false;
     }
 
@@ -60,6 +87,7 @@ function refreshResults() {
       item.category,
       item.bestSeason,
       item.suitableFor,
+      item.roadAccess ?? "",
       ...item.highlights,
     ]
       .join(" ")
@@ -115,6 +143,7 @@ function createMarker(attraction) {
       <ul>${highlightList}</ul>
       <p><strong>Best season:</strong> ${escapeHtml(attraction.bestSeason)}</p>
       <p><strong>Family tip:</strong> ${escapeHtml(attraction.suitableFor)}</p>
+      <p><strong>Road access:</strong> ${escapeHtml(attraction.roadAccess ?? "Standard Car")}</p>
       <p>
         <a href="${attraction.website}" target="_blank" rel="noopener">Official site</a> ·
         <a href="${attraction.directionsUrl}" target="_blank" rel="noopener">Directions</a>
@@ -148,6 +177,7 @@ function createAttractionCard(attraction) {
       <p><strong>Best season:</strong> ${escapeHtml(attraction.bestSeason)} | <strong>Ideal for:</strong> ${escapeHtml(
         attraction.suitableFor
       )}</p>
+      <p><strong>Road access:</strong> ${escapeHtml(attraction.roadAccess ?? "Standard Car")}</p>
       <div class="highlight-tags">
         ${attraction.highlights.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}
       </div>
