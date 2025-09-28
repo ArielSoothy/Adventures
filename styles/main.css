@@ -16,13 +16,17 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, "Rubik", "Assistant", "Noto Sans Hebrew", sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
 .site-header {
   padding: 1.5rem clamp(1rem, 3vw, 3rem);
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
   background: linear-gradient(135deg, #0f4c81, #1f78b4);
   color: #ffffff;
   box-shadow: 0 4px 20px rgba(15, 76, 129, 0.25);
@@ -38,6 +42,31 @@ body {
   margin: 0;
   font-size: clamp(1rem, 2vw, 1.1rem);
   max-width: 48rem;
+}
+
+.language-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.language-toggle:hover,
+.language-toggle:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 76, 129, 0.35);
+}
+
+.language-toggle:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .layout {
@@ -263,6 +292,75 @@ select:focus {
   #map {
     min-height: 420px;
   }
+}
+
+body[dir="rtl"] .site-header {
+  flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .branding {
+  text-align: right;
+}
+
+body[dir="rtl"] .layout {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 1024px) {
+  body[dir="rtl"] .layout {
+    flex-direction: column;
+  }
+}
+
+body[dir="rtl"] .sidebar {
+  border-right: none;
+  border-left: 1px solid var(--border);
+  text-align: right;
+}
+
+@media (max-width: 1024px) {
+  body[dir="rtl"] .sidebar {
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+body[dir="rtl"] input[type="search"],
+body[dir="rtl"] select {
+  text-align: right;
+}
+
+body[dir="rtl"] .field-label {
+  text-align: right;
+}
+
+body[dir="rtl"] .card-header,
+body[dir="rtl"] .card-body,
+body[dir="rtl"] .card-links,
+body[dir="rtl"] .highlight-tags {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+body[dir="rtl"] .card-links {
+  flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .card-links a,
+body[dir="rtl"] .card-links .zoom-button {
+  direction: rtl;
+}
+
+body[dir="rtl"] .highlight-tags span {
+  direction: rtl;
+}
+
+body[dir="rtl"] .leaflet-popup-content {
+  text-align: right;
+}
+
+body[dir="rtl"] .language-toggle {
+  align-self: flex-start;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -14,16 +14,17 @@
   <body>
     <header class="site-header">
       <div class="branding">
-        <h1>Family Adventures in Israel</h1>
-        <p>Explore kid-approved attractions, find highlights, and plan your next outing.</p>
+        <h1 id="site-title">Family Adventures in Israel</h1>
+        <p id="site-tagline">Explore kid-approved attractions, find highlights, and plan your next outing.</p>
       </div>
+      <button type="button" id="language-toggle" class="language-toggle" aria-label="Switch language">עברית</button>
     </header>
 
     <main class="layout">
       <section class="sidebar" aria-label="Attraction list and filters">
         <div class="controls">
           <label class="field">
-            <span class="field-label">Search</span>
+            <span class="field-label" id="label-search">Search</span>
             <input
               type="search"
               id="search-input"
@@ -33,21 +34,21 @@
           </label>
 
           <label class="field">
-            <span class="field-label">Category</span>
+            <span class="field-label" id="label-category">Category</span>
             <select id="category-filter">
               <option value="all">All categories</option>
             </select>
           </label>
 
           <label class="field">
-            <span class="field-label">Road access</span>
+            <span class="field-label" id="label-road-access">Road access</span>
             <select id="road-access-filter">
               <option value="all">All access levels</option>
             </select>
           </label>
 
           <label class="field">
-            <span class="field-label">Best season</span>
+            <span class="field-label" id="label-season">Best season</span>
             <select id="season-filter">
               <option value="all">All seasons</option>
               <option value="Year-round">Year-round</option>
@@ -68,7 +69,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>
+      <p id="footer-note">
         Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors · Built with
         <a href="https://leafletjs.com/">Leaflet</a>
       </p>
